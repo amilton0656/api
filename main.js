@@ -9,7 +9,7 @@ app.use(bodyParser.json())
 
 app.use(cors())
 
-const sequelize = require('./util/MySql')
+const sequelize = require('./util/DBconnection')
 sequelize.authenticate()
     .then(() => {
         require('./models')

@@ -13,9 +13,8 @@ exports.addUsuario = (req, res, next) => {
 }
 
 exports.updUsuario = (req, res, next) => {
-  const id = req.params.id
+  const id = req.body.id
   const body = req.body
-
   Usuario.findByPk(id)
     .then(usuario => {
       usuario.update(body)
@@ -33,8 +32,8 @@ exports.delUsuario = (req, res, next) => {
   const id = req.params.id
 
   Usuario.findByPk(id)
-    .then(usuario => {
-      usuario.destroy(usuario)
+    .then(usu => {
+      usu.destroy(usu)
     })
     .then(id => {
       res.status(200).json(id)
@@ -43,6 +42,17 @@ exports.delUsuario = (req, res, next) => {
       console.log(err)
       res.status(500).json('Usuário não encontrado.')
     })
+  // const id = req.params.id
+
+  // Usuario.sequelize.query(`
+  // delete from usuarios where id = :id`,
+  // { replacements: { id } })
+  //   .then(usuario => {
+  //     res.status(200).json(parseInt(id))
+  //   })
+  //   .catch(err => {
+  //     res.status(500).send({ message: "Ocorreu um erro ao buscar os registros." });
+  //   });
 }
 
 exports.getUsuarioById = (req, res, next) => {
@@ -61,7 +71,7 @@ exports.getUsuarioByNome = (req, res, next) => {
   const { nome } = req.params
   const busca = '%' + nome.toLowerCase() + '%'
 
-  Usuario.sequelize.query(`select id, nome
+  Usuario.sequelize.query(`select *
   from usuarios
   where lower(nome) like :busca
   order by nome`,
@@ -77,7 +87,7 @@ exports.getUsuarioByNome = (req, res, next) => {
 
 exports.getUsuarios = (req, res, next) => {
   Usuario.sequelize.query(`
-  select id, nome
+  select *
   from usuarios
   order by nome`)
     .then(usuarios => {

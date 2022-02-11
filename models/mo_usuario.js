@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 
-const sequelize = require('../util/postgres')
+const sequelize = require('../util/DBconnection')
 
 const Usuario = sequelize.define('usuarios', {
   id: {

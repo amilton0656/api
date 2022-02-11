@@ -10,7 +10,8 @@ router.get('/form', (req, res) => {
 
 
 router.post('/add', controller.addUsuario)
+router.put('/upd', controller.updUsuario)
+router.delete('/del/:id', controller.delUsuario)
 router.get('/lista', controller.getUsuarios)
-router.delete('/delete/:id', controller.delUsuario)
 
 module.exports = router
