@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 
 
-const db = 0
+const db = 1
 
 let banco = 'node'
 let usu = 'cota'
