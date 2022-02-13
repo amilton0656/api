@@ -1,4 +1,5 @@
 const Usuario = require('../models/mo_usuario')
+const jwt = require('../util/jwt')
 
 exports.addUsuario = (req, res, next) => {
   const usuario = req.body
@@ -98,6 +99,46 @@ exports.getUsuarios = (req, res, next) => {
       res.status(500).json('Ocorreu um erro ao buscar os registros.')
     })
 }
+
+exports.login = (req, res, next) => {
+  const { nome, senha } = req.body
+
+  Usuario.sequelize.query(`
+  select id, nome
+  from usuarios
+  where nome = :nome
+  and senha = :senha`,
+  { replacements: { nome, senha } })
+    .then(usuarios => {
+      const resp = usuarios[0]
+
+      if (resp.length > 0) {
+          res.status(200).json({
+            auth: true, 
+            id: resp[0].id,
+            usuario: resp[0].nome,
+            token: jwt.createToken(req.body)      
+          })  
+      } else {
+        res.status(201).json({
+          auth: false, 
+          usuario: {},
+          token: ''
+        
+        })  
+      }
+    })
+    .catch(err => {
+      console.log('entrou no catch')
+      res.status(500).json({
+        auth: false, 
+        usuario: {},
+        token: ''
+      
+      })
+    })
+}
+
 
 
 
