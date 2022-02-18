@@ -22,6 +22,9 @@ sequelize.authenticate()
 const usuarioRoutes = require('./routes/ro_usuario');
 app.use('/usuario', usuarioRoutes);
 
+const pessoaRoutes = require('./routes/ro_pessoa');
+app.use('/pessoa', pessoaRoutes);
+
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/status.html')
 })
