@@ -6,9 +6,9 @@ const router = express.Router()
 
 const md_auth = require('../util/autenticacao')
 
-router.get('/form', (req, res) => {
-    res.render('formPostagem.ejs')
-})
+// router.get('/form', (req, res) => {
+//     res.render('formPostagem.ejs')
+// })
 
 
 router.post('/add', controller.addUsuario)

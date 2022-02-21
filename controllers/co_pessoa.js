@@ -2,7 +2,6 @@ const Pessoa = require('../models/mo_pessoa')
 const jwt = require('../util/jwt')
 
 exports.addPessoa = (req, res, next) => {
-  console.log('chegou bo add')
   const pessoa = req.body
   Pessoa.create(pessoa)
     .then(pessoa => {
@@ -12,10 +11,11 @@ exports.addPessoa = (req, res, next) => {
       console.log(err)
       res.status(500).json('Erro ao cadastrar.')
     })
+
 }
 
 exports.updPessoa = (req, res, next) => {
-  const id = req.body.id
+  const id = req.body.id_pessoa
   const body = req.body
   Pessoa.findByPk(id)
     .then(pessoa => {
@@ -31,7 +31,7 @@ exports.updPessoa = (req, res, next) => {
 }
 
 exports.delPessoa = (req, res, next) => {
-  const id = req.params.id
+  const id = req.params.id_pessoa
 
   Pessoa.findByPk(id)
     .then(usu => {
@@ -58,7 +58,7 @@ exports.delPessoa = (req, res, next) => {
 }
 
 exports.getPessoaById = (req, res, next) => {
-  const id = req.params.id
+  const id = req.params.id_pessoa
   Pessoa.findByPk(id)
     .then(pessoa => {
       res.status(200).json(pessoa)
