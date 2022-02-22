@@ -28,6 +28,9 @@ app.use('/pessoa', pessoaRoutes);
 const pessoacomplementoRoutes = require('./routes/ro_pessoa_complemento');
 app.use('/pessoacomplemento', pessoacomplementoRoutes);
 
+const pessoacontatoRoutes = require('./routes/ro_pessoa_contato');
+app.use('/pessoacontato', pessoacontatoRoutes);
+
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/status.html')
 })
