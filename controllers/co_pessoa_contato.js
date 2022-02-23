@@ -31,7 +31,7 @@ exports.updPessoaContato = (req, res, next) => {
 }
 
 exports.delPessoaContato = (req, res, next) => {
-  const id = req.params.id_pessoa
+  const id = req.params.id_contato
 
   PessoaContato.findByPk(id)
     .then(usu => {

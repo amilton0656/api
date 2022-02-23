@@ -69,6 +69,20 @@ exports.getPessoaById = (req, res, next) => {
     })
 }
 
+exports.getPessoaByCPF = (req, res, next) => {
+  const cpf = req.params.cpf_cnpj
+  Pessoa.findOne({
+     where: { cpf_cnpj: cpf } 
+    })
+    .then(pessoa => {
+      res.status(200).json(pessoa)
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(500).json('Usuário não encontrado.')
+    })
+}
+
 exports.getPessoaByNome = (req, res, next) => {
   const { nome } = req.params
   const busca = '%' + nome.toLowerCase() + '%'
