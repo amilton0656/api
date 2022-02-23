@@ -14,8 +14,9 @@ exports.addPessoaContato = (req, res, next) => {
 }
 
 exports.updPessoaContato = (req, res, next) => {
-  const id = req.body.id_dados
+  const id = req.body.id_contato
   const body = req.body
+  console.log(body)
   PessoaContato.findByPk(id)
     .then(contato => {
       contato.update(body)
@@ -57,7 +58,7 @@ exports.getPessoaContatoById = (req, res, next) => {
     })
 }
 
-exports.getPessoaContatoByIdPessoa = (req, res, next) => {
+exports.getPessoaContatosByIdPessoa = (req, res, next) => {
 
   const id_pessoa = req.params.id_pessoa
 

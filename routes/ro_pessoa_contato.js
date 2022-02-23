@@ -9,6 +9,6 @@ const md_auth = require('../util/autenticacao')
 router.post('/add', controller.addPessoaContato)
 router.put('/upd', controller.updPessoaContato)
 router.delete('/del/:id', controller.delPessoaContato)
-router.get('/lista/:id_pessoa', controller.getPessoaContatoByIdPessoa)
+router.get('/lista/:id_pessoa', controller.getPessoaContatosByIdPessoa)
 
 module.exports = router
