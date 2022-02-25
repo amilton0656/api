@@ -14,6 +14,7 @@ exports.addPessoaComplemento = (req, res, next) => {
 }
 
 exports.updPessoaComplemento = (req, res, next) => {
+  console.log('dataFormII ', req.body)
   const id = req.body.id_dados
   const body = req.body
   PessoaComplemento.findByPk(id)
