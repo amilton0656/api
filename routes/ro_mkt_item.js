@@ -12,6 +12,7 @@ const md_auth = require('../util/autenticacao')
 
 
 router.post('', controller.addMktItem)
+router.post('/limpalista/:usuario', controller.limpaListaMktItem)
 router.patch('', controller.updMktItem)
 router.delete('/:id', controller.delMktItem)
 router.get('', controller.getMktItems)

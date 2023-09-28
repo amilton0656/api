@@ -4,6 +4,7 @@ const email = require('../testes/email')
 
 exports.addMktItem = (req, res, next) => {
   const registro = req.body
+
   MktItem.create(registro)
     .then(registro => {
       res.status(200).json(registro)
@@ -15,10 +16,9 @@ exports.addMktItem = (req, res, next) => {
 }
 
 exports.updMktItem = (req, res, next) => {
-  const id = req.body.id
+  const id = req.body['id']
   const body = req.body
-  console.log(id)
-  console.log(body)
+
   MktItem.findByPk(id)
     .then(registro => {
       registro.update(body)
@@ -102,6 +102,23 @@ exports.getMktItems = (req, res, next) => {
       res.status(500).json('Ocorreu um erro ao buscar os registros.')
     })
 }
+
+exports.limpaListaMktItem = (req, res, next) => {
+  const { usuario } = req.params
+  console.log(usuario)
+
+  MktItem.sequelize.query(`delete
+  from mkt_items
+  where usuario = ?`,
+    { replacements: [usuario] })
+    .then(registro => {
+      res.status(200).json(registro[0])
+    })
+    .catch(err => {
+      res.status(500).send({ message: "Ocorreu um erro ao excluir os registros." });
+    });
+}
+
 
 
 
