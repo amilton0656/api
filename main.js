@@ -37,6 +37,15 @@ app.use('/mkthistorico', mkthistoricoRoutes);
 const mktitemRoutes = require('./routes/ro_mkt_item');
 app.use('/mktitem', mktitemRoutes);
 
+const empreendimentoRoutes = require('./routes/ro_empreendimento');
+app.use('/empreendimento', empreendimentoRoutes);
+
+const centrocustosRoutes = require('./routes/ro_centrocustos');
+app.use('/centrocustos', centrocustosRoutes);
+
+const cxmovimentoRoutes = require('./routes/ro_cx_movimento');
+app.use('/cxmovimento', cxmovimentoRoutes);
+
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/status.html')
 })
