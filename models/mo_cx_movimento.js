@@ -2,7 +2,6 @@ const Sequelize = require('sequelize')
 
 const sequelize = require('../util/apinodeDBconnection')
 
-const Empreendimento = require('./mo_empreendimento')
 const CentroCustos = require('./mo_centrocustos')
 
 const CxMovimento = sequelize.define('cx_movimento', {
@@ -12,12 +11,26 @@ const CxMovimento = sequelize.define('cx_movimento', {
     allowNull: false,
     primaryKey: true
   },
-  data: Sequelize.DATE,
-  sinal: Sequelize.STRING(1),
-  valor: Sequelize.FLOAT,
+  data: {
+    type: Sequelize.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.literal("(CURRENT_DATE())")
+  },
+  sinal: {
+    type: Sequelize.STRING(1),
+    allowNull: false,
+    defaultValue: "+"
+  },
+  valor: {
+    type: Sequelize.FLOAT,
+    allowNull: false,
+    defaultValue: 0
+  },
   historico: Sequelize.TEXT,
-  id_empreendimento: Sequelize.INTEGER,
-  id_centrocustos: Sequelize.INTEGER,
+  id_centrocustos: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
 
 
 }, {
@@ -28,7 +41,6 @@ const CxMovimento = sequelize.define('cx_movimento', {
 });
 
 
-Empreendimento.hasOne(CxMovimento, { foreignKey: 'id_empreendimento' })
 CentroCustos.hasOne(CxMovimento, { foreignKey: 'id_centrocustos' })
 
 module.exports = CxMovimento
