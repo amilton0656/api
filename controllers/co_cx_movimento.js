@@ -132,8 +132,8 @@ exports.getCxMovimento = (req, res, next) => {
 
 exports.getCxMovimentoQuery = (req, res, next) => {
   const query = req.body.query
-  CxMovimento.sequelize.query(`?`,{ replacements: [query] })
-  
+  CxMovimento.sequelize.query(query)
+
     .then(registros => {
       res.status(200).json(registros[0])
     })
