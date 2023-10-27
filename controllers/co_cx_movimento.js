@@ -131,6 +131,7 @@ exports.getCxMovimento = (req, res, next) => {
 }
 
 exports.getCxMovimentoQuery = (req, res, next) => {
+  const dataanterior = req.body.dataanterior
   const query = req.body.query
   CxMovimento.sequelize.query(query)
 
@@ -142,6 +143,27 @@ exports.getCxMovimentoQuery = (req, res, next) => {
       res.status(500).json('Ocorreu um erro ao buscar os registros.')
     })
 }
+
+exports.getCxMovimentoSaldo = (req, res, next) => {
+  const dataanterior = req.body.dataanterior
+  console.log('chegou anterior ' + dataanterior)
+  CxMovimento.sequelize.query(`
+  select SUM( 
+    (SELECT COALESCE(sum(valor), 0) FROM cx_movimento where data < '2023-10-19' and sinal = "+") -
+    (SELECT COALESCE(sum(valor), 0) FROM cx_movimento where data < '2023-10-19' and sinal = "-")
+    ) as saldoanterior
+  `)
+
+    .then(registros => {
+      console.log(registros[0])
+      res.status(200).json(registros[0])
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(500).json('Ocorreu um erro ao buscar os registros.')
+    })
+}
+
 
 
 

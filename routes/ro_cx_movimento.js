@@ -15,5 +15,6 @@ router.get('/desc/:descricao', controller.getCxMovimentoByDescricao)
 router.get('/obra/:id', controller.getCxMovimentoByEmpreendimento)
 router.get('/cc/:id', controller.getCxMovimentoByCentroCustos)
 router.post('/query', controller.getCxMovimentoQuery)
+router.post('/saldo', controller.getCxMovimentoSaldo)
 
 module.exports = router
