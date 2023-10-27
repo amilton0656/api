@@ -7,6 +7,7 @@ const router = express.Router()
 const md_auth = require('../util/autenticacao')
 
 router.post('', controller.addCentroCustos)
+router.post('/upd', controller.updCentroCustos)
 router.patch('', controller.updCentroCustos)
 router.delete('/:id', controller.delCentroCustos)
 router.get('', controller.getCentroCustos)
