@@ -145,14 +145,16 @@ exports.getCxMovimentoQuery = (req, res, next) => {
 }
 
 exports.getCxMovimentoSaldo = (req, res, next) => {
+  const id_centrocustos = req.body.id_centrocustos
   const dataanterior = req.body.dataanterior
-  console.log('chegou anterior ' + dataanterior)
-  CxMovimento.sequelize.query(`
+  const query = `
   select SUM( 
-    (SELECT COALESCE(sum(valor), 0) FROM cx_movimento where data < '2023-10-19' and sinal = "+") -
-    (SELECT COALESCE(sum(valor), 0) FROM cx_movimento where data < '2023-10-19' and sinal = "-")
+    (SELECT COALESCE(sum(valor), 0) FROM cx_movimento where data < ${dataanterior} and sinal = "+" and id_centrocustos = ${id_centrocustos}) -
+    (SELECT COALESCE(sum(valor), 0) FROM cx_movimento where data < ${dataanterior} and sinal = "-" and id_centrocustos = ${id_centrocustos})
     ) as saldoanterior
-  `)
+  `
+
+  CxMovimento.sequelize.query(query)
 
     .then(registros => {
       console.log(registros[0])
